@@ -2,6 +2,29 @@ doctype html
 html
   head
     title= title
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+  body        
+    div(class='container')
+        div(class='row')
+            div(class='col-md-12')
+                h1(class='text-center') Uninforma
+                    small  Your help during University!
+        div(class='row', id='search_form')
+            div(class='col-md-12')
+                form(class='form-inline')
+                    div(class='form-group')
+                        input(type='text', class='form-control', placeholder='Insert keywords')
+                    button(type='submit', class='btn btn-primary') Search
+                    = '\n'
+        block content
+        
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+            integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa',
+            crossorigin='anonymous')
+    
+    footer(class='footer')
+        div(class='container')
+            p(class='text-center') Made proudly by Giovanni De Toni (Software Engineering Course Project) 
+    
