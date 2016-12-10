@@ -26,6 +26,24 @@ function setTags(tags) {
     }
 }
 
+function arraysEqual(a, b) {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
+function equals(question) {
+    return this.title === question.title &&
+                this.answer === question.answer &&
+                this.rating === question.rating &&
+                arraysEqual(this.tags, question.tags);
+}
+
 function Question(title, answer, rating, tags) {
     this.title = title;
     this.answer = answer;
@@ -35,7 +53,8 @@ function Question(title, answer, rating, tags) {
     this.setAnswer = setAnswer;
     this.setRating = setRating;
     this.setTags = setTags;
+    this.equals = equals;
 }
 
-module.exports.question = Question;
+module.exports.Question = Question;
 
