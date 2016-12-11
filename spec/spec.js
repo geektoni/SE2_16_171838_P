@@ -46,25 +46,31 @@ describe("Question model", function(){
         });
     });
     
-    it("create a specific question", function() {
+    xit("create a specific question", function() {
         var result = questionDAO.create(testQuestion);
         expect(result).toBe(true); 
     });
     
     it("retrieve a specific question", function() {
-        expect(false).toBe(true);
+        questionDAO.read(1, function(err, result){
+            assert.equal(err, null);
+            if (result === undefined && result === null) {
+                result = new Question.Question();
+            }
+            expect(result.equals(testQuestion)).toBe(true);
+        });
     });
     
-    it("update a specific question", function() {
+    xit("update a specific question", function() {
         var updated_question = new Question.Question("test_up", "test_up", 10, []);
         expect(questionDAO.update(updated_question)).toBe(true);
     });
     
-    it("delete a specific question", function() {
+    xit("delete a specific question", function() {
         expect(questionDAO._delete(1)).toBe(true);
     });
     
-    it("search a specific question by tag", function() {
+    xit("search a specific question by tag", function() {
         expect(false).toBe(true);
     });
     
