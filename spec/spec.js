@@ -1,30 +1,48 @@
+// Tell the application to switch to the debug database
+process.env.DEBUG = 1;
+
+// Include modules needed
 var Question = require('../models/question.js');
 var questionDAO = require('../models/questionsDAO.js');
 var database =  require('../lib/databaseConnection.js');
-
 var assert = require('assert');
 
-var testQuestion = new Question.Question('test', 'test', 0, ['a', 'b']);
+var testQuestion = new Question.Question(1, 'test', 'test', 0, ['a', 'b']);
 
 describe("Question model", function(){
     
-    beforeEach(function() {
+    beforeEach(function(done) {
         database.client.connect(database.url, function(err, db) {
             assert.equal(null, err);
-            db.createCollection("testingCollection",
-                function(err, results) {
-                    console.log("Collection created.");
-                }
-            );
-            db.close();
+            var collection = db.collection(database.defaultCollection);
+            collection.insertOne(testQuestion, function(err, result) {
+                assert.equal(err, null);
+                db.close();
+                done();
+            });
         });
     });
     
-    afterEach(function() {
+    afterEach(function(done) {
         database.client.connect(database.url, function(err, db) {
             assert.equal(null, err);
-            db.testingCollection.drop()
+            var collection = db.collection(database.defaultCollection);
+            collection.drop();
             db.close();
+            done();
+        });
+    });
+    
+    // After all the spec have been called, clear the
+    // debug database to prevent any problem regarding
+    // duplicated keys, collections, etc.
+    afterAll(function(done) {
+        database.client.connect(database.url, function(err, db) {
+            assert.equal(null, err);
+            var collection = db.collection(database.defaultCollection);
+            collection.drop();
+            db.close();
+            done();
         });
     });
     
@@ -34,51 +52,15 @@ describe("Question model", function(){
     });
     
     it("retrieve a specific question", function() {
-        database.client.connect(database.url, function(err, db) {
-            assert.equal(null, err);
-            var collection = db.collection('testingCollection');
-            collection.insertOne(testQuestion, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                assert.equal(1, result.ops.length);
-                db.close();
-                return true;
-            });
-        });
-        
-        var found_question = questionDAO.read(1);
-        expect(found_question.equals(testQuestion)).toBe(true);
+        expect(false).toBe(true);
     });
     
     it("update a specific question", function() {
-        database.client.connect(database.url, function(err, db) {
-            assert.equal(null, err);
-            var collection = db.collection('testingCollection');
-            collection.insertOne(testQuestion, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                assert.equal(1, result.ops.length);
-                db.close();
-                return true;
-            });
-        });
-        
         var updated_question = new Question.Question("test_up", "test_up", 10, []);
         expect(questionDAO.update(updated_question)).toBe(true);
     });
     
     it("delete a specific question", function() {
-        database.client.connect(database.url, function(err, db) {
-            assert.equal(null, err);
-            var collection = db.collection('testingCollection');
-            collection.insertOne(testQuestion, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                assert.equal(1, result.ops.length);
-                db.close();
-                return true;
-            });
-        });
         expect(questionDAO._delete(1)).toBe(true);
     });
     

@@ -44,7 +44,8 @@ function equals(question) {
                 arraysEqual(this.tags, question.tags);
 }
 
-function Question(title, answer, rating, tags) {
+function Question(id, title, answer, rating, tags) {
+    this.id = id;
     this.title = title;
     this.answer = answer;
     this.rating = rating;
