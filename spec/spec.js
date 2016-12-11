@@ -7,9 +7,43 @@ var questionDAO = require('../models/questionsDAO.js');
 var database =  require('../lib/databaseConnection.js');
 var assert = require('assert');
 
-var testQuestion = new Question.Question(1, 'test', 'test', 0, ['a', 'b']);
+describe("Question object", function() {
+    
+    var controlQuestion = new Question.Question(1, 'test', 'test', 0, ['a', 'b']);;
+    var testQuestion;
+    
+    beforeEach(function() {
+        testQuestion = new Question.Question();
+    });
+    
+    it("tells correctly inequality with different object", function() {
+        expect(controlQuestion.equals(testQuestion)).not.toBe(true);
+    });
+    
+    xit("tells correctly inequality with default objects", function() {
+        expect((new Question.Question()).equals(new Question.Question())).not.toBe(true);
+    });
+    
+    xit("tells correctly inequality between object with different tags", function() {
+        testQuestion = controlQuestion;
+        testQuestion.tags.append('d');
+        expect(controlQuestion.equals(testQuestion)).not.toBe(true);
+    });
+    
+    it("tells correctly equality with differents object", function() {
+        testQuestion = controlQuestion;
+        expect(controlQuestion.equals(testQuestion)).toBe(true);
+    });
+    
+    it("tells correctly equality with same object", function() {
+        expect(controlQuestion.equals(controlQuestion)).toBe(true);
+    });
+    
+});
 
-describe("Question model", function(){
+describe("Question CRUD model", function(){
+    
+    var testQuestion = new Question.Question(1, 'test', 'test', 0, ['a', 'b']);
     
     beforeEach(function(done) {
         database.client.connect(database.url, function(err, db) {
