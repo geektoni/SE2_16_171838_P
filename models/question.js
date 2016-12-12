@@ -14,6 +14,10 @@ function setRating(rating) {
     this.rating = rating;
 }
 
+function setCategory(category) {
+    this.category = category;
+}
+
 function setTags(tags) {
     var found = false;
     if (this.tags !== null && this.tags !== undefined) {
@@ -49,19 +53,22 @@ function equals(question) {
     return this.title === question.title &&
                 this.answer === question.answer &&
                 this.rating === question.rating &&
+                this.category === question.category && 
                 arraysEqual(this.tags, question.tags);
 }
 
-function Question(id, title, answer, rating, tags) {
+function Question(id, title, answer, rating, category, tags) {
     this.id = id;
     this.title = title;
     this.answer = answer;
     this.rating = rating;
+    this.category = category;
     this.tags = tags;
     this.setId = setId;
     this.setTitle = setTitle;
     this.setAnswer = setAnswer;
     this.setRating = setRating;
+    this.setCategory = setCategory;
     this.setTags = setTags;
     this.equals = equals;
 }
