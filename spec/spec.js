@@ -44,15 +44,25 @@ describe("Question object", function() {
 describe("Question CRUD model", function(){
     
     var testQuestion = new Question.Question(1, 'test', 'test', 0,'test_category', ['a', 'b']);
+    var testQuestion2 = new Question.Question(2, 'test2', 'test2', 1,'test_category2', ['c', 'd']);
+    var allTestQuestions = { 
+        'category_one': [testQuestion],
+        'category_two': [testQuestion2]
+    }
     
     beforeEach(function(done) {
         database.client.connect(database.url, function(err, db) {
             assert.equal(null, err);
             var collection = db.collection(database.defaultCollection);
-            collection.insertOne(testQuestion, function(err, result) {
+            collection.insertMany([testQuestion, testQuestion2], function(err, result) {
                 assert.equal(err, null);
-                db.close();
-                done();
+                db.collection(database.categoryCollection).insertMany(
+                    [{name:'category_one'}, {name:'category_two'}], 
+                    function(err, result){
+                        assert.equal(err, null);
+                        db.close();
+                        done();
+                });
             });
         });
     });
@@ -62,6 +72,7 @@ describe("Question CRUD model", function(){
             assert.equal(null, err);
             var collection = db.collection(database.defaultCollection);
             collection.drop();
+            db.collection(database.categoryCollection).drop();
             db.close();
             done();
         });
@@ -77,6 +88,18 @@ describe("Question CRUD model", function(){
             collection.drop();
             db.close();
             done();
+        });
+    });
+    
+    it("retrieve all questions group by category", function(){
+        questionDAO.readAll(function(err, result){
+            assert.equal(err, null);
+            for (var i=0; i<result.length; i++) {
+                for (var j=0; j<result[i].length; j++) {
+                    
+                }
+            }
+            expect(false).toBe(true);
         });
     });
     

@@ -67,7 +67,24 @@ function update(id, new_question, callback) {
     });
 }
 
+function readAll(callback) {
+    database.client.connect(database.url, function(err, db) {
+        assert.equal(null, err);
+        var collectionq = db.collection(database.defaultCollection);
+        var collectionc = db.collection(database.categoryCollection);
+        
+        collectionc.find({name: {$exists: true}}, function(err, result) {
+            var arrayTmp = result.map(function (u) {
+                return u;
+            })
+            console.log(arrayTmp);
+            callback(null, {"test":{}});
+        });
+    });
+}
+
 module.exports.create = create;
 module.exports._delete = _delete;
 module.exports.read = read;
 module.exports.update = update;
+module.exports.readAll = readAll;
