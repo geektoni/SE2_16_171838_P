@@ -88,16 +88,43 @@ describe("Question CRUD model", function(){
     it("retrieve a specific question", function() {
         questionDAO.read(1, function(err, result){
             assert.equal(err, null);
-            if (result === undefined && result === null) {
+            if (result === undefined || result === null) {
                 result = new Question.Question();
             }
             expect(result.equals(testQuestion)).toBe(true);
         });
     });
     
-    xit("update a specific question", function() {
-        var updated_question = new Question.Question("test_up", "test_up", 10, []);
-        expect(questionDAO.update(updated_question)).toBe(true);
+    it("fail to retrieve a specific question", function() {
+        questionDAO.read(2, function(err, result){
+           assert.equal(err, null);
+            if (result === undefined || result === null) {
+                result = new Question.Question();
+            }
+            expect(result.equals(testQuestion)).toBe(false); 
+        });
+    });
+    
+    it("update a specific question with an empty set of tags", function() {
+        var updated_question = new Question.Question(1, "test_up", "test_up", 10, ['c']);
+        questionDAO.update(1, updated_question, function(err, result) {
+            assert.equal(err, null);
+            if (result === undefined || result === null) {
+                result = new Question.Question();
+            }
+            expect(result.equals(updated_question)).toBe(true); 
+        });
+    });
+    
+    it("update a specific question with a non-empty set of tags", function() {
+        var updated_question = new Question.Question(1, "test_up", "test_up", 10, ['c']);
+        questionDAO.update(1, updated_question, function(err, result) {
+            assert.equal(err, null);
+            if (result === undefined || result === null) {
+                result = new Question.Question();
+            }
+            expect(result.equals(updated_question)).toBe(true); 
+        });
     });
     
     xit("delete a specific question", function() {
