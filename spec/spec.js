@@ -9,7 +9,7 @@ var assert = require('assert');
 
 describe("Question object", function() {
     
-    var controlQuestion = new Question.Question(1, 'test', 'test', 0, ['a', 'b']);;
+    var controlQuestion = new Question.Question(1, 'test', 'test', 0, 'test_category',['a', 'b']);;
     var testQuestion;
     
     beforeEach(function() {
@@ -43,7 +43,7 @@ describe("Question object", function() {
 
 describe("Question CRUD model", function(){
     
-    var testQuestion = new Question.Question(1, 'test', 'test', 0, ['a', 'b']);
+    var testQuestion = new Question.Question(1, 'test', 'test', 0,'test_category', ['a', 'b']);
     
     beforeEach(function(done) {
         database.client.connect(database.url, function(err, db) {
@@ -106,7 +106,7 @@ describe("Question CRUD model", function(){
     });
     
     it("update a specific question with an empty set of tags", function() {
-        var updated_question = new Question.Question(1, "test_up", "test_up", 10, ['c']);
+        var updated_question = new Question.Question(1, "test_up", "test_up", 10, 'test_category_up',['c']);
         questionDAO.update(1, updated_question, function(err, result) {
             assert.equal(err, null);
             if (result === undefined || result === null) {
@@ -117,7 +117,7 @@ describe("Question CRUD model", function(){
     });
     
     it("update a specific question with a non-empty set of tags", function() {
-        var updated_question = new Question.Question(1, "test_up", "test_up", 10, ['c']);
+        var updated_question = new Question.Question(1, "test_up", "test_up", 10, 'test_category_up',['c']);
         questionDAO.update(1, updated_question, function(err, result) {
             assert.equal(err, null);
             if (result === undefined || result === null) {
