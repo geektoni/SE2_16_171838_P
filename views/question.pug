@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    div(class="row")
+        div(class="col-md-12")
+            h2 #{title}
+            hr
+    div(class="row")
+        div(class="col-md-12")
+            p #{answer}
+            hr
+    div(class="row text-center")
+        div(class="col-md-12")
+            form(class="form")
+                label Did you find this answer useful?
+                br
+                button(type="button", class="btn btn-default btn-lg")
+                    span(class="glyphicon glyphicon-thumbs-up")
+                button(type="button", class="btn btn-default btn-lg")
+                    span(class="glyphicon glyphicon-thumbs-down")
+        
+    
+

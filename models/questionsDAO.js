@@ -72,8 +72,14 @@ function readAll(callback) {
         assert.equal(null, err);
         var collectionq = db.collection(database.defaultCollection);
         var collectionc = db.collection(database.categoryCollection);
-        db.close();
-        callback(err, [[]]);
+        
+        collectionc.find({name: {$exists: true}}, function(err, result) {
+            var arrayTmp = result.map(function (u) {
+                return u;
+            })
+            console.log(arrayTmp);
+            callback(null, {"test":{}});
+        });
     });
 }
 
