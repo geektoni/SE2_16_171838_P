@@ -22,6 +22,7 @@ function read(id, callback) {
                 tmp.setTitle(result.title);
                 tmp.setAnswer(result.answer);
                 tmp.setRating(result.rating);
+                tmp.setCategory(result.category);
                 tmp.setTags(Array.from(result.tags));
                 result = tmp;
             }
@@ -41,6 +42,7 @@ function update(id, new_question, callback) {
                     title: new_question.title,
                     answer: new_question.answer,
                     rating: new_question.rating,
+                    category: new_question.category,
                     tags: new_question.tags
                 }
             }, 
@@ -55,6 +57,7 @@ function update(id, new_question, callback) {
                 tmp.setTitle(result.value.title);
                 tmp.setAnswer(result.value.answer);
                 tmp.setRating(result.value.rating);
+                tmp.setCategory(result.value.category);
                 tmp.setTags(Array.from(result.value.tags));
                 result = tmp;
             }
