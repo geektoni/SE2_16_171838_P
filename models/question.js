@@ -1,3 +1,7 @@
+function setId(id) {
+    this.id = id;
+}
+
 function setTitle(title) {
     this.title = title;
 }
@@ -7,22 +11,26 @@ function setAnswer(answer) {
 }
 
 function setRating(rating) {
-    this.answer = answer;
+    this.rating = rating;
 }
 
 function setTags(tags) {
     var found = false;
-    for (var i=0; i<tags.length; i++) {
-        found = false;
-        for (var j=0; j<this.tags.length; j++) {
-            if (tags[i] == this.tags[j]) {
-                found=true;
-                break;
+    if (this.tags !== null && this.tags !== undefined) {
+        for (var i=0; i<tags.length; i++) {
+            found = false;
+            for (var j=0; j<this.tags.length; j++) {
+                if (tags[i] == this.tags[j]) {
+                    found=true;
+                    break;
+                }
             }
-        }
-        if (!found) {
-            this.tags.append(tags[i]);
-        }
+            if (!found) {
+                this.tags.append(tags[i]);
+            } 
+        }     
+    } else {
+        this.tags = tags;        
     }
 }
 
@@ -50,6 +58,7 @@ function Question(id, title, answer, rating, tags) {
     this.answer = answer;
     this.rating = rating;
     this.tags = tags;
+    this.setId = setId;
     this.setTitle = setTitle;
     this.setAnswer = setAnswer;
     this.setRating = setRating;
