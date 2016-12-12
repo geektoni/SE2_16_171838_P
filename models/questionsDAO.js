@@ -67,7 +67,18 @@ function update(id, new_question, callback) {
     });
 }
 
+function readAll(callback) {
+    database.client.connect(database.url, function(err, db) {
+        assert.equal(null, err);
+        var collectionq = db.collection(database.defaultCollection);
+        var collectionc = db.collection(database.categoryCollection);
+        db.close();
+        callback(err, [[]]);
+    });
+}
+
 module.exports.create = create;
 module.exports._delete = _delete;
 module.exports.read = read;
 module.exports.update = update;
+module.exports.readAll = readAll;
