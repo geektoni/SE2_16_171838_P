@@ -71,14 +71,22 @@ function readAll(callback) {
     database.client.connect(database.url, function(err, db) {
         assert.equal(null, err);
         var collectionq = db.collection(database.defaultCollection);
-        var collectionc = db.collection(database.categoryCollection);
-        
-        collectionc.find({name: {$exists: true}}, function(err, result) {
-            var arrayTmp = result.map(function (u) {
-                return u;
-            })
-            console.log(arrayTmp);
-            callback(null, {"test":{}});
+        var collectionc = db.collection(database.categoryCollection);   
+        collectionq.find({}).toArray(
+            function(err, items) {
+                var test = {};
+                for (var i=0; i<items.length; i++) {
+                    test[items[i].category] = [];
+                    var tmp = new Question.Question();
+                    tmp.setId(items[i].id);
+                    tmp.setTitle(items[i].title);
+                    tmp.setAnswer(items[i].answer);
+                    tmp.setRating(items[i].rating);
+                    tmp.setCategory(items[i].category);
+                    tmp.setTags(Array.from(items[i].tags));
+                    test[items[i].category].push(tmp);
+                }
+                callback(null, test);        
         });
     });
 }

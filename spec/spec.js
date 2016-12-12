@@ -93,13 +93,14 @@ describe("Question CRUD model", function(){
     
     it("retrieve all questions group by category", function(){
         questionDAO.readAll(function(err, result){
-            assert.equal(err, null);
-            for (var i=0; i<result.length; i++) {
-                for (var j=0; j<result[i].length; j++) {
-                    
+            var testResult = [testQuestion2, testQuestion];
+            var i = 0;
+            for (var key in result) {
+                if (result.hasOwnProperty(key)) {
+                    expect(result[key][i].equals(testResult[i]));
+                    i++;
                 }
             }
-            expect(false).toBe(true);
         });
     });
     
