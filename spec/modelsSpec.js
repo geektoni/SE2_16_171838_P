@@ -1,5 +1,5 @@
-// Tell the application to switch to the debug database
-process.env.DEBUG = 1;
+// Tell the application to switch to the testing database
+process.env.TEST = 1;
 
 // Include modules needed
 var Question = require('../models/question.js');
