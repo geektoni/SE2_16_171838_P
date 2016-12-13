@@ -7,40 +7,6 @@ var questionDAO = require('../models/questionsDAO.js');
 var database =  require('../lib/databaseConnection.js');
 var assert = require('assert');
 
-describe("Question object", function() {
-    
-    var controlQuestion = new Question.Question(1, 'test', 'test', 0, 'test_category',['a', 'b']);;
-    var testQuestion;
-    
-    beforeEach(function() {
-        testQuestion = new Question.Question();
-    });
-    
-    it("tells correctly inequality with different object", function() {
-        expect(controlQuestion.equals(testQuestion)).not.toBe(true);
-    });
-    
-    xit("tells correctly inequality with default objects", function() {
-        expect((new Question.Question()).equals(new Question.Question())).not.toBe(true);
-    });
-    
-    xit("tells correctly inequality between object with different tags", function() {
-        testQuestion = controlQuestion;
-        testQuestion.tags.append('d');
-        expect(controlQuestion.equals(testQuestion)).not.toBe(true);
-    });
-    
-    it("tells correctly equality with differents object", function() {
-        testQuestion = controlQuestion;
-        expect(controlQuestion.equals(testQuestion)).toBe(true);
-    });
-    
-    it("tells correctly equality with same object", function() {
-        expect(controlQuestion.equals(controlQuestion)).toBe(true);
-    });
-    
-});
-
 describe("Question CRUD model", function(){
     
     var testQuestion = new Question.Question(1, 'test', 'test', 0,'test_category', ['a', 'b']);
@@ -77,11 +43,11 @@ describe("Question CRUD model", function(){
             done();
         });
     });
-    
-    // After all the spec have been called, clear the
+
+    // Before calling all the spec, clear the
     // debug database to prevent any problem regarding
     // duplicated keys, collections, etc.
-    afterAll(function(done) {
+    beforeAll(function(done) {
         database.client.connect(database.url, function(err, db) {
             assert.equal(null, err);
             var collection = db.collection(database.defaultCollection);
@@ -101,11 +67,6 @@ describe("Question CRUD model", function(){
                 }
             }
         });
-    });
-    
-    xit("create a specific question", function() {
-        var result = questionDAO.create(testQuestion);
-        expect(result).toBe(true); 
     });
     
     it("retrieve a specific question", function() {
@@ -157,7 +118,10 @@ describe("Question CRUD model", function(){
     xit("search a specific question by tag", function() {
         expect(false).toBe(true);
     });
-    
-    
+        
+    xit("create a specific question", function() {
+        var result = questionDAO.create(testQuestion);
+        expect(result).toBe(true); 
+    });
 
 });

@@ -39,17 +39,21 @@ function setTags(tags) {
 }
 
 function arraysEqual(a, b) {
-  if (a === b) return true;
-  if (a == null || b == null) return false;
-  if (a.length != b.length) return false;
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length != b.length) return false;
 
-  for (var i = 0; i < a.length; ++i) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
+    for (var i = 0; i < a.length; ++i) {
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
 }
 
 function equals(question) {
+    if (question === null || question === undefined)
+    {
+        return false;
+    }
     return this.title === question.title &&
                 this.answer === question.answer &&
                 this.rating === question.rating &&
