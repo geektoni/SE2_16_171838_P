@@ -3,7 +3,7 @@ extends layout
 block content
     div(class="row")
         div(class="col-md-12")
-            h2 #{title}
+            h2 #{question}
     div(class="row")
         div(class="col-md-12")
             each tag in tags
@@ -11,7 +11,7 @@ block content
             hr
     div(class="row")
         div(class="col-md-12")
-            p #{answer}
+            p(class="answer") #{answer}
             hr
     div(class="row text-center")
         div(class="col-md-12")

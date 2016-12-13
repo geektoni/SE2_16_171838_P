@@ -5,20 +5,23 @@ html
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/'+cssfile)
-  body        
-    div(class='container')
-        div(class='row')
-            div(class='col-md-12')
-                a(class="title-link" href="/")
-                    h1(class='text-center') Uninforma
-                        small  Your help during University!
-        div(class='row', id='search_form')
-            div(class='col-md-12')
-                form(class='form-inline')
-                    div(class='form-group')
-                        input(type='text', class='form-control', placeholder='Insert keywords')
-                    button(type='submit', class='btn btn-primary') Search
-                    = '\n'
+  body
+    header(class="header")
+        div(class='container')
+                div(class='row')
+                    div(class='col-md-12')
+                        a(class="title-link" href="/")
+                            h1(class='text-center') Uninforma
+                                small  Your help during University!
+                div(class='row', id='search_form')
+                    div(class='col-md-12')
+                        form(class='form-inline', action="/questions", method="GET" )
+                            div(class='form-group')
+                                div(class="input-group")
+                                    input(type='text', class='form-control', placeholder='Insert keywords', name="query")
+                                    span(class="input-group-btn")
+                                        button(type='submit', class='btn btn-primary') Search
+    div(class="container content")
         block content
         
     footer(class='footer')
