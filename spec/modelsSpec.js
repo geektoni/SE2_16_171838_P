@@ -9,14 +9,17 @@ var assert = require('assert');
 
 describe("Question CRUD model", function(){
     
-    var testQuestion = new Question.Question(1, 'test', 'test', 0,'test_category', ['a', 'pattern2']);
-    var testQuestion2 = new Question.Question(2, 'test2', 'test2', 1,'test_category2', ['pattern', 'd']);
-    var allTestQuestions = { 
-        'category_one': [testQuestion],
-        'category_two': [testQuestion2]
-    }
+    var testQuestion;
+    var testQuestion2;
+    var allTestQuestions;
     
     beforeEach(function(done) {
+        testQuestion = new Question.Question(1, 'test', 'test', 0,'test_category', ['a', 'pattern2']);
+        testQuestion2 = new Question.Question(2, 'test2', 'test2', 1,'test_category2', ['pattern', 'd']);
+        allTestQuestions = { 
+            'category_one': [testQuestion],
+            'category_two': [testQuestion2]
+        }
         database.client.connect(database.url, function(err, db) {
             assert.equal(null, err);
             var collection = db.collection(database.defaultCollection);
@@ -58,23 +61,30 @@ describe("Question CRUD model", function(){
     
     it("retrieve all questions group by category", function(){
         questionDAO.readAll(function(err, result){
-            var testResult = [testQuestion2, testQuestion];
+            var testResult = { 
+                "test_category": [testQuestion],
+                "test_category2": [testQuestion2]
+            }
             var i = 0;
+            var status = true;
             for (var key in result) {
                 if (result.hasOwnProperty(key)) {
-                    expect(testResult[i].equals(result[key][i])).toBe(true);
+                    if (!testResult[key][i].equals(result[key][i])){
+                        status = false;
+                    }
                 }
             }
+            expect(status).toBe(true);
         });
     });
     
     it("retrieve a specific question", function() {
         questionDAO.read(2, function(err, result){
-            assert.equal(err, null);
             if (result === undefined || result === null) {
                 result = new Question.Question();
             }
-            expect(testQuestion2.equals(result)).toBe(true);
+            var res = testQuestion2.equals(result);
+            expect(res).toEqual(true);
         });
     });
     
