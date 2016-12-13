@@ -9,8 +9,8 @@ var assert = require('assert');
 
 describe("Question CRUD model", function(){
     
-    var testQuestion = new Question.Question(1, 'test', 'test', 0,'test_category', ['a', 'b']);
-    var testQuestion2 = new Question.Question(2, 'test2', 'test2', 1,'test_category2', ['c', 'd']);
+    var testQuestion = new Question.Question(1, 'test', 'test', 0,'test_category', ['a', 'pattern2']);
+    var testQuestion2 = new Question.Question(2, 'test2', 'test2', 1,'test_category2', ['pattern', 'd']);
     var allTestQuestions = { 
         'category_one': [testQuestion],
         'category_two': [testQuestion2]
@@ -22,12 +22,11 @@ describe("Question CRUD model", function(){
             var collection = db.collection(database.defaultCollection);
             collection.insertMany([testQuestion, testQuestion2], function(err, result) {
                 assert.equal(err, null);
-                db.collection(database.categoryCollection).insertMany(
-                    [{name:'category_one'}, {name:'category_two'}], 
-                    function(err, result){
-                        assert.equal(err, null);
-                        db.close();
-                        done();
+                db.collection(database.defaultCollection).createIndex({
+                    tags: "text"
+                }, function(err, result){
+                    db.close();
+                    done(); 
                 });
             });
         });
@@ -63,7 +62,7 @@ describe("Question CRUD model", function(){
             var i = 0;
             for (var key in result) {
                 if (result.hasOwnProperty(key)) {
-                    expect(result[key][i].equals(testResult[i]));
+                    expect(result[key][i].equals(testResult[i])).toBe(true);
                 }
             }
         });
@@ -80,12 +79,12 @@ describe("Question CRUD model", function(){
     });
     
     it("fail to retrieve a specific question", function() {
-        questionDAO.read(2, function(err, result){
+        questionDAO.read(7, function(err, result){
            assert.equal(err, null);
             if (result === undefined || result === null) {
                 result = new Question.Question();
             }
-            expect(result.equals(testQuestion)).toBe(false); 
+            expect(testQuestion.equals(result)).toBe(false); 
         });
     });
     
@@ -111,12 +110,15 @@ describe("Question CRUD model", function(){
         });
     });
     
-    xit("delete a specific question", function() {
-        expect(questionDAO._delete(1)).toBe(true);
+    it("search a specific question by tag", function() {
+        questionDAO.search("pattern2", function(err, result){
+            var testResult = [testQuestion2];
+            expect(result[i].equals(testResult[0])).toBe(true);
+        });        
     });
     
-    xit("search a specific question by tag", function() {
-        expect(false).toBe(true);
+    xit("delete a specific question", function() {
+        expect(questionDAO._delete(1)).toBe(true);
     });
         
     xit("create a specific question", function() {
