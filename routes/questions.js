@@ -14,7 +14,7 @@ router.get('/:id', function(req, res, next) {
             } else {
                  res.render('question', { title: 'UnInforma', 
                                     jsfile: 'jExpand.js', 
-                                    cssfile: 'index.css', 
+                                    cssfile: 'question.css', 
                                     title: result.title,
                                     answer: result.answer,
                                     tags: result.tags

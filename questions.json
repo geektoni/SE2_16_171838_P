@@ -1,0 +1,40 @@
+{ 
+  "id":1,
+  "title":"Where can I find my study plan?",
+  "answer":"You can find more information at http://www.esse3.unitn.it",
+  "rating":1,
+  "category":"Didactic Activities",
+  "tags":["esse3","plan", "courses", "exams"]
+}
+{
+  "id":2,
+  "title":"Where can I reserve an exam?",
+  "answer":"There is a specific section at Didattica Online website, namely http://www.esse3.unitn.it, where you can see all the exam dates available",
+  "rating":1,
+  "category":"Didactic Activities",
+  "tags":["exams","esse3", "reserve", "courses"]
+}
+{
+  "id":3,
+  "title":"Where can I find more informations about Computer Science MSc?",
+  "answer":"There are many informations available on the department website, http://disi.unitn.it",
+  "rating":1,
+  "category":"Courses",
+  "tags":["msc","master", "informatics", "computer", "science", "graduate"]
+}
+{
+  "id":4,
+  "title":"Are there sport complexes in Trento?",
+  "answer":"Yes! You can find more information at http://www.unisport.tn.it/. You will also find many interesting courses and activities to keep yourself fit!",
+  "rating":1,
+  "category":"Extra Activities",
+  "tags":["sport", "fit", "gym", "activities", "courses"]
+}
+{
+  "id":5,
+  "title":"What are the best places to hang out in Trento?",
+  "answer":"Trento is WELL KNOW for its evening parties and all that stuff! You can have a good time in many bars and discotheques which are located in the city centre!",
+  "rating":1,
+  "category":"Extra Activities",
+  "tags":["party","discotheques", "fun", "aperitif"]
+}
