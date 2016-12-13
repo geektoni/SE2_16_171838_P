@@ -17,9 +17,10 @@ html
                     div(class='col-md-12')
                         form(class='form-inline', action="/questions", method="GET" )
                             div(class='form-group')
-                                input(type='text', class='form-control', placeholder='Insert keywords', name="query")
-                            button(type='submit', class='btn btn-primary') Search
-                            = '\n'
+                                div(class="input-group")
+                                    input(type='text', class='form-control', placeholder='Insert keywords', name="query")
+                                    span(class="input-group-btn")
+                                        button(type='submit', class='btn btn-primary') Search
     div(class="container content")
         block content
         
