@@ -62,19 +62,19 @@ describe("Question CRUD model", function(){
             var i = 0;
             for (var key in result) {
                 if (result.hasOwnProperty(key)) {
-                    expect(result[key][i].equals(testResult[i])).toBe(true);
+                    expect(testResult[i].equals(result[key][i])).toBe(true);
                 }
             }
         });
     });
     
     it("retrieve a specific question", function() {
-        questionDAO.read(1, function(err, result){
+        questionDAO.read(2, function(err, result){
             assert.equal(err, null);
             if (result === undefined || result === null) {
                 result = new Question.Question();
             }
-            expect(result.equals(testQuestion)).toBe(true);
+            expect(testQuestion2.equals(result)).toBe(true);
         });
     });
     
@@ -95,7 +95,7 @@ describe("Question CRUD model", function(){
             if (result === undefined || result === null) {
                 result = new Question.Question();
             }
-            expect(result.equals(updated_question)).toBe(true); 
+            expect(updated_question.equals(result)).toBe(true); 
         });
     });
     
@@ -106,14 +106,13 @@ describe("Question CRUD model", function(){
             if (result === undefined || result === null) {
                 result = new Question.Question();
             }
-            expect(result.equals(updated_question)).toBe(true); 
+            expect(updated_question.equals(result)).toBe(true); 
         });
     });
     
     it("search a specific question by tag", function() {
         questionDAO.search("pattern2", function(err, result){
-            var testResult = [testQuestion2];
-            expect(result[i].equals(testResult[0])).toBe(true);
+            expect(testQuestion2.equals(result[0])).toBe(true);
         });        
     });
     
