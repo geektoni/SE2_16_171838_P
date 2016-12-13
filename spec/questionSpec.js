@@ -1,17 +1,20 @@
-// Tell the application to switch to the debug database
-process.env.DEBUG = 1;
+/**
+* Test file for the question object.
+*
+* It contains all the method's unit tests.
+*/
 
 // Include modules needed
 var Question = require('../models/question.js');
-var questionDAO = require('../models/questionsDAO.js');
-var database =  require('../lib/databaseConnection.js');
 var assert = require('assert');
 
 describe("Question object", function() {
     
+    // Sample question objects
     var controlQuestion = new Question.Question(1, 'test', 'test', 0, 'test_category',['a', 'b']);
     var testQuestion; 
     
+    // Before each unit test generate a new testQuestion
     beforeEach(function() {
         testQuestion = new Question.Question(1, 'test2', 'test', 0, 'test_category',['a', 'b']);
     });
