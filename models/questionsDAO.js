@@ -92,8 +92,40 @@ function readAll(callback) {
     });
 }
 
+function search(text, callback) {
+    database.client.connect(database.url, function(err, db) {
+        assert.equal(null, err);
+        var collectionq = db.collection(database.defaultCollection);
+        collectionq.find({
+            $text: {
+                $search: text,
+                $caseSensitive: false
+            }},
+            { score: { $meta: "textScore" }}
+        ).sort( { score: { $meta: "textScore" } } ).toArray(
+            function(err, items) {
+                if (items === undefined || items === null) {
+                    items = [];
+                }
+                var test = [];
+                for (var i=0; i<items.length; i++) {
+                    var tmp = new Question.Question();
+                    tmp.setId(items[i].id);
+                    tmp.setTitle(items[i].title);
+                    tmp.setAnswer(items[i].answer);
+                    tmp.setRating(items[i].rating);
+                    tmp.setCategory(items[i].category);
+                    tmp.setTags(Array.from(items[i].tags));
+                    test.push(tmp);
+                }
+                callback(null, test);        
+        });
+    });
+}
+
 module.exports.create = create;
 module.exports._delete = _delete;
 module.exports.read = read;
 module.exports.update = update;
 module.exports.readAll = readAll;
+module.exports.search = search;
