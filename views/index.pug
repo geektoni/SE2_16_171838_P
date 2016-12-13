@@ -1,5 +1,27 @@
 extends layout
 
+mixin list(items)
+    div(class='row')
+        div(class='col-md-12')
+            table(class='table', id='report')
+                tr
+                    th
+                        i Click on one topic to show all the topic questions.
+                    = '\n'
+                each index, val in items
+                    tr
+                        td(class='title') 
+                            h3 #{val}
+                                span(class="caret")
+                    tr
+                        td(colspan='4')
+                            ul
+                                each question in items[val]
+                                    li 
+                                        a(href='/questions/'+question.id) #{question.title}
+                                    = '\n'
+
 block content
-  h1= title
-  p Welcome to #{title}
+    +list(items)
+                       
+

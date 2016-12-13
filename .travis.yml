@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- '4.2'
+branches:
+  only:
+    - staging
+after_success:
+- "./node_modules/.bin/codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json"
+deploy:
+  provider: heroku
+  api_key:
+    secure: p4w/b15xeoT0od3QNVuSrIO+n9vU5+3A0HBN6tU7bmtiNOZZWpc/EyTHdkfopUd412LS/8nEN4CLlauYuu5pvaDvN53r6Dgl1MmpUo+Xu6u0Y0tKzbhbbpop/3Px/jwh9pzLvMGpSsLar+nQwwY8WN0uQN0BaCYgLCODqd3mCpsectFAYisKD2fAfD+Am4OS2fzcxwVn4xhr0CRHfgZ4ml9fjdKWh+/YKS1JtMdkwRjg+m+u+9iP+IuOXaflJ64d+LXVbJCw5ii6yE1X3Jzc3My90HgNnngnrMTXpQDKCetHxLfdcIlogrGX77FyxKVRpbw0KZf7980UQk++n93PE8ky/vbXXrZ0XwkZixdXMZG7Ee3gIJZz3uex18J3I0cpQEt2i9sI7+qisrpP9EoQm5pAPdhwCgSgmt/aM5HNDC+ne6qUyVovk5azvzkqPzjkZz/8UHXTBv3oMXdGK3zNzIgxqZwvzRWx+De35VsyzSrkrBcCm2wDAehL85xw5NJi9pLaSqu10YMYLBKSqXKQdC5j2mhtcXzAhhVgoYgcQfu5vhxttJNScXNFqtg+lGrZNu5sD+aD4iHzjkJ0FWuaZJnN5j1aedSqpMUl46Ww0aWfeZ6U0w/Df33EKrwpf9XIJMfBtTh/BhfvEyLFj1K8YTEQiZblWLTFwLLi2R7psJA=
+  app: SE2_16_171838_P
+  on:
+    repo: geektoni/SE2_16_171838_P
+    branch: staging

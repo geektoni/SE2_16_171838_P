@@ -1,0 +1,11 @@
+th {
+    font-weight: normal;
+}
+
+td.title {
+    font-weight: bold;
+}
+
+li {
+    font-size: 18px;
+}
