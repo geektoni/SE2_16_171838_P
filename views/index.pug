@@ -15,9 +15,9 @@ mixin list(items)
                                 span(class="caret")
                     tr
                         td(colspan='4')
-                            ul
+                            ul(class="list-group")
                                 each question in items[val]
-                                    li 
+                                    li(class="list-group-item") 
                                         a(href='/questions/'+question.id) #{question.title}
                                     = '\n'
 

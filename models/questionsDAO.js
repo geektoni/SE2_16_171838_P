@@ -104,6 +104,9 @@ function search(text, callback) {
             { score: { $meta: "textScore" }}
         ).sort( { score: { $meta: "textScore" } } ).toArray(
             function(err, items) {
+                if (items === undefined || items === null) {
+                    items = [];
+                }
                 var test = [];
                 for (var i=0; i<items.length; i++) {
                     var tmp = new Question.Question();

@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    div(class="row")
+        div(class="col-md-12")
+            h2 We found #{result.length} matching questions:      
+    case result.length
+        when 0
+            div(class="row")
+                div(class="col-md-12")
+                    h4 Try with different words.
+        default
+                div(class="row")
+                    div(class="col-md-12")
+                        ul(class="list-group")
+                            each question in result
+                                li(class="list-group-item")
+                                    a(href="/questions/"+question.id) #{question.title}
