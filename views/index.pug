@@ -1,7 +1,6 @@
 extends layout
 
-block content
-    br
+mixin list(items)
     div(class='row')
         div(class='col-md-12')
             table(class='table', id='report')
@@ -9,26 +8,20 @@ block content
                     th
                         i Click on one topic to show all the topic questions.
                     = '\n'
-                tr
-                    td(class='title') Tasse 
-                    = '\n'
-                tr
-                    td(colspan='4')
-                        ul
-                            li 
-                                a(href='#') How test?
-                            li 
-                                a(href='#') How test2?
-                    = '\n'
-                tr
-                    td(class='title') Esami 
-                    = '\n'
-                tr
-                    td(colspan='4')
-                        ul
-                            li 
-                                a(href='#') What test?
-                            li 
-                                a(href='#') What test2?
-                    = '\n'
+                each index, val in items
+                    tr
+                        td(class='title') 
+                            h3 #{val}
+                    tr
+                        td(colspan='4')
+                            ul
+                            each question in items[val]
+                                li 
+                                    a(href='/questions/'+question.id) #{question.title}
+                                = '\n'
+
+block content
+    br
+    +list(items)
+                       
 

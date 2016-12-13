@@ -98,7 +98,6 @@ describe("Question CRUD model", function(){
             for (var key in result) {
                 if (result.hasOwnProperty(key)) {
                     expect(result[key][i].equals(testResult[i]));
-                    i++;
                 }
             }
         });
