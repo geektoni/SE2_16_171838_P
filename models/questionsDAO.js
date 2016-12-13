@@ -71,12 +71,13 @@ function readAll(callback) {
     database.client.connect(database.url, function(err, db) {
         assert.equal(null, err);
         var collectionq = db.collection(database.defaultCollection);
-        var collectionc = db.collection(database.categoryCollection);   
         collectionq.find({}).toArray(
             function(err, items) {
                 var test = {};
                 for (var i=0; i<items.length; i++) {
-                    test[items[i].category] = [];
+                    if (test[items[i].category] === undefined) {
+                      test[items[i].category] = [];
+                    }
                     var tmp = new Question.Question();
                     tmp.setId(items[i].id);
                     tmp.setTitle(items[i].title);

@@ -15,10 +15,10 @@ mixin list(items)
                     tr
                         td(colspan='4')
                             ul
-                            each question in items[val]
-                                li 
-                                    a(href='/questions/'+question.id) #{question.title}
-                                = '\n'
+                                each question in items[val]
+                                    li 
+                                        a(href='/questions/'+question.id) #{question.title}
+                                    = '\n'
 
 block content
     br
