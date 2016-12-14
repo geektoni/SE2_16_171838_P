@@ -1,5 +1,5 @@
-// Tell the application to switch to the debug database
-process.env.DEBUG = 1;
+// Tell the application to switch to the testing database
+process.env.TEST = 1;
 
 // Include modules needed
 var Question = require('../models/question.js');
@@ -14,8 +14,8 @@ describe("Question CRUD model", function(){
     var allTestQuestions;
     
     beforeEach(function(done) {
-        testQuestion = new Question.Question(1, 'test', 'test', 0,'test_category', ['a', 'pattern2']);
-        testQuestion2 = new Question.Question(2, 'test2', 'test2', 1,'test_category2', ['pattern', 'd']);
+        testQuestion = new Question.Question(1, 'test', 'test', {"up": 1, "down": 1},'test_category', ['a', 'pattern2']);
+        testQuestion2 = new Question.Question(2, 'test2', 'test2', {"up": 2, "down": 1},'test_category2', ['pattern', 'd']);
         allTestQuestions = { 
             'category_one': [testQuestion],
             'category_two': [testQuestion2]
