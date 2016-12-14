@@ -1,0 +1,144 @@
+---
+swagger: "2.0"
+info:
+  description: "Search for question and answer to fulfill yout university doubts!"
+  version: "1.0.0"
+  title: "Uninforma API"
+  contact:
+    name: "giovanni.detoni@studenti.unitn.it"
+host: "se2-16-171838-p-production.herokuapp.com"
+basePath: "/"
+schemes:
+- "http"
+produces:
+- "text/html"
+paths:
+  /:
+    get:
+      tags:
+      - "Index"
+      summary: "Index page."
+      description: "Return a dictionary containing all questions grouped by category."
+      operationId: "rootGET"
+      parameters: []
+      responses:
+        200:
+          description: "A dictionary of questions grouped by category"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/inline_response_200"
+        default:
+          description: "An empty dictionary"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/inline_response_200"
+      x-swagger-router-controller: "Index"
+  /questions:
+    get:
+      tags:
+      - "Question"
+      summary: "Search questions"
+      description: "Search questions by a text query"
+      operationId: "questionsGET"
+      parameters:
+      - name: "query"
+        in: "query"
+        description: "A list of words, separated by space, that will be used to search"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "Return a list of question or an empty list if nothing is found"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Question"
+      x-swagger-router-controller: "Question"
+  /questions/{id}:
+    get:
+      tags:
+      - "Question"
+      summary: "Show a questiondescription webpage"
+      description: "Return a single question given its id"
+      operationId: "questionsIdGET"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the question we want to see."
+        required: true
+        type: "number"
+        format: "integer"
+      responses:
+        200:
+          description: "A single question object"
+          schema:
+            $ref: "#/definitions/Question"
+        404:
+          description: "An empty question object if the id doesn't exist."
+          schema:
+            $ref: "#/definitions/Question"
+      x-swagger-router-controller: "Question"
+  /questions/{id}/update:
+    post:
+      tags:
+      - "Question"
+      summary: "Update a question"
+      description: "Update the rating of a question"
+      operationId: "questionsIdUpdatePOST"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The id of the question I want to modify"
+        required: true
+        type: "number"
+        format: "integer"
+      - in: "body"
+        name: "new_question"
+        description: "New data we want to use to update the question."
+        required: true
+        schema:
+          $ref: "#/definitions/Question"
+      responses:
+        200:
+          description: "Return the updated object with the new values"
+          schema:
+            $ref: "#/definitions/Question"
+        500:
+          description: "If the id is not valid or doesn't exist."
+      x-swagger-router-controller: "Question"
+definitions:
+  Question:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+        description: "Title of the question."
+      answer:
+        type: "string"
+        description: "Answer to the question."
+      rating:
+        $ref: "#/definitions/Question_rating"
+      category:
+        type: "string"
+        description: "The category"
+      tags:
+        type: "array"
+        items:
+          type: "string"
+  inline_response_200:
+    properties:
+      category:
+        type: "array"
+        items:
+          $ref: "#/definitions/Question"
+  Question_rating:
+    properties:
+      up:
+        type: "integer"
+        description: "How many like the question received."
+      down:
+        type: "integer"
+        description: "How many dislike the question received."

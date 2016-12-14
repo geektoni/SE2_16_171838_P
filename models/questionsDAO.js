@@ -1,19 +1,47 @@
+/**
+* Question DAO (Data Access Object) implementation.
+*
+* These methods implements ways to create, read, update 
+* and delete question object from/to the database. These
+* methods follow the CRUD paradigm. These are implemented
+* as asyncronous methods (with a callback).
+*
+*/
+
+// Module required
 var assert = require('assert');
 var Question = require('./question.js');
 var database = require('../lib/databaseConnection.js');
 
-function create() {
+/**
+* @brief Insert an object in the database.
+* @param The question I want to insert.
+* @param The callback function that will be called on completion. 
+*/
+function create(question, callback) {
     return false;
 }
 
-function _delete(id) {
+/**
+* @brief Delete an object from the database.
+* @param The question id I want to delete.
+* @param The callback function that will be called on completion. 
+*/
+function _delete(id, callback) {
     return false;
 }
 
+/**
+* @brief Read an object from the database.
+* @param The question id I want to read.
+* @param The callback function that will be called on completion. 
+*/
 function read(id, callback) {
     database.client.connect(database.url, function(err, db) {
         assert.equal(null, err);
         var collection = db.collection(database.defaultCollection);
+        
+        // Find exactly one question with the specified id 
         collection.findOne({id: id}, function(err, result) {
             assert.equal(null, err);
             if (result !== null) {
@@ -32,10 +60,19 @@ function read(id, callback) {
     });
 }
 
+/**
+* @brief Update an object in the database.
+* @param The question id I want to update.
+* @param The new question values
+* @param The callback function that will be called on completion. 
+*/
 function update(id, new_question, callback) {
     database.client.connect(database.url, function(err, db) {
         assert.equal(null, err);
         var collection = db.collection(database.defaultCollection);
+        
+        // Find the question with the specified id and update it
+        // with the new values
         collection.findOneAndUpdate(
             {id: id}, 
             {   $set: {
@@ -50,6 +87,7 @@ function update(id, new_question, callback) {
                 returnOriginal: false
             }
         , function(err, result) {
+            // Return to the caller the updated question
             assert.equal(null, err);
             if (result.value !== null) {
                 var tmp = new Question.Question();
@@ -67,10 +105,17 @@ function update(id, new_question, callback) {
     });
 }
 
+/**
+* @brief Read all the question from the database and group them by category.
+* @param The callback function that will be called on completion. 
+*/
 function readAll(callback) {
     database.client.connect(database.url, function(err, db) {
         assert.equal(null, err);
         var collectionq = db.collection(database.defaultCollection);
+        
+        // Select all the questions in the collection and generate
+        // a new array with the questions grouped by category.
         collectionq.find({}).toArray(
             function(err, items) {
                 var test = {};
@@ -92,10 +137,19 @@ function readAll(callback) {
     });
 }
 
+/**
+* @brief Perform a full-text search on the database to find questions
+*        matching a specific query.
+* @param The query.
+* @param The callback function that will be called on completion. 
+*/
 function search(text, callback) {
     database.client.connect(database.url, function(err, db) {
         assert.equal(null, err);
         var collectionq = db.collection(database.defaultCollection);
+        
+        // Find questions that match the full-text query and sort
+        // them by score
         collectionq.find({
             $text: {
                 $search: text,
@@ -123,6 +177,7 @@ function search(text, callback) {
     });
 }
 
+// Methods exports
 module.exports.create = create;
 module.exports._delete = _delete;
 module.exports.read = read;

@@ -1,24 +1,83 @@
+/**
+* Question model.
+*
+* These are the methods and the
+* definition of the "question" model that is
+* the basic object that the application use.
+*
+*/
+
+/**
+* @brief The main Question object
+* @param The question id
+* @param The question title
+* @param The question answer
+* @param The question rating
+* @param The question category
+* @param The question tags
+*/
+function Question(id, title, answer, rating, category, tags) {
+    this.id = id;
+    this.title = title;
+    this.answer = answer;
+    this.rating = rating;
+    this.category = category;
+    this.tags = tags;
+    this.setId = setId;
+    this.setTitle = setTitle;
+    this.setAnswer = setAnswer;
+    this.setRating = setRating;
+    this.setCategory = setCategory;
+    this.setTags = setTags;
+    this.equals = equals;
+}
+
+
+/**
+* @brief Set the question id.
+* @param The new question id.
+*/
 function setId(id) {
     this.id = id;
 }
 
+/**
+* @brief Set the question title.
+* @param The new question title.
+*/
 function setTitle(title) {
     this.title = title;
 }
 
+/**
+* @brief Set the question answer.
+* @param The new question answer.
+*/
 function setAnswer(answer) {
     this.answer = answer;
 }
 
+/**
+* @brief Set the question rating.
+* @param The new question rating.
+*/
 function setRating(rating) {
     // Rating structure {up: "", down: ""}
     this.rating = rating;
 }
 
+/**
+* @brief Set the question category.
+* @param The new question category.
+*/
 function setCategory(category) {
     this.category = category;
 }
 
+/**
+* @brief Set the question tags.
+* @param The new question tags.
+*/
 function setTags(tags) {
     var found = false;
     if (this.tags !== null && this.tags !== undefined) {
@@ -39,24 +98,10 @@ function setTags(tags) {
     }
 }
 
-function arraysEqual(a, b) {
-    if (a === b) return true;
-    if (a == null || b == null) return false;
-    if (a.length != b.length) return false;
-
-    for (var i = 0; i < a.length; ++i) {
-        if (a[i] !== b[i]) return false;
-    }
-    return true;
-}
-
-function ratingEqual(a, b) {
-    if (a===b) return true;
-    if (a == null || b == null) return false;
-    if (a== undefined || b == undefined) return false;
-    return (a['up'] === b['up'] && a['down'] === b['down']);
-}
-
+/**
+* @brief Check if a question object is equal to another question object.
+* @param the question I want to check equality.
+*/
 function equals(question) {
     if (question === null || question === undefined)
     {
@@ -69,20 +114,32 @@ function equals(question) {
                 arraysEqual(this.tags, question.tags);
 }
 
-function Question(id, title, answer, rating, category, tags) {
-    this.id = id;
-    this.title = title;
-    this.answer = answer;
-    this.rating = rating;
-    this.category = category;
-    this.tags = tags;
-    this.setId = setId;
-    this.setTitle = setTitle;
-    this.setAnswer = setAnswer;
-    this.setRating = setRating;
-    this.setCategory = setCategory;
-    this.setTags = setTags;
-    this.equals = equals;
+/**
+* @brief Check if two arrays are equal.
+* @param a the first array.
+* @param b the second array.
+*/
+function arraysEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length != b.length) return false;
+
+    for (var i = 0; i < a.length; ++i) {
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
+}
+
+/**
+* @brief Check if two ratings are equal.
+* @param a the first rating.
+* @param b the second rating.
+*/
+function ratingEqual(a, b) {
+    if (a===b) return true;
+    if (a == null || b == null) return false;
+    if (a== undefined || b == undefined) return false;
+    return (a['up'] === b['up'] && a['down'] === b['down']);
 }
 
 module.exports.Question = Question;

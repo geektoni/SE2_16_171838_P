@@ -1,13 +1,29 @@
+/**
+* Question Controller
+*
+* This is the controller for the question page. It will
+* manage all the urls that come in the form http://site/questions/{something}.
+* The idea would be to implement a REST API.
+*/
+
+// Modules needed
 var express = require('express');
 var questionDAO = require('../models/questionsDAO.js');
 var router = express.Router();
 
-/* GET question page */
+/**
+* Get all the questions that match a full-text query
+* previously passed.
+*/
 router.get('/', function(req, res, next) {
+    
+    // Check and sanitize the GET parameter
     var query = req.param("query");
     if ( query === undefined || query === null) {
         query = "";
     }
+    
+    // Search and render the page
     questionDAO.search(query, function(err, result) {
         if (result == null || result == undefined) {
             result = []
@@ -19,12 +35,19 @@ router.get('/', function(req, res, next) {
     }); 
 });
 
+/**
+* Show a question based on the id given  
+*/
 router.get('/:id', function(req, res, next) {
+    
+    // Sanitize the id and check for correctness
     var id = parseInt(req.params["id"]);
     if (id === null || isNaN(id)) {
         next('route');
     } else {
-       questionDAO.read(id, function(err, result) {
+        
+        // Search and render the page
+        questionDAO.read(id, function(err, result) {
             if (result == null || result == undefined) {
                 next('route');
             } else {
@@ -42,6 +65,9 @@ router.get('/:id', function(req, res, next) {
     }
 });
 
+/**
+* Update a question based on the id and the new question given  
+*/
 router.post('/:id/update', function(req, res, next){
     var id = parseInt(req.params["id"]);
     if (id === null || isNaN(id)) {
@@ -79,4 +105,5 @@ router.post('/:id/update', function(req, res, next){
     }
 });
 
+// Export the router
 module.exports = router;
