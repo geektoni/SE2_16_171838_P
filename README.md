@@ -11,7 +11,7 @@ You can find and online vesion of the application at this [link](https://se2-16-
 
 This is an application prototype for the Software Engineering Course Project. It was made based on a mockup idea produced during one interactive lesson where we worked in pairs following tips given by [The Gift Giving Project](https://dschool.stanford.edu/groups/designresources/wiki/ed894/The_GiftGiving_Project.html). You can find the proposed mockup [here](https://drive.google.com/file/d/0B8Hfs7DpCPvHWHJKeHFtOWFDM2M/view) (initially it was designed as a smarthphone application).
 
-The application is hosted on Heroku and it is composed by a backend written in **Node.js** and **Express.js** and by a frontend written in **HTML** and **CSS** (using the **Pug** framework). It also uses a **MongoDB** database to store all the data.
+The application is hosted on Heroku and it is composed by a backend written in **Node.js** and **Express.js** and by a frontend written in **HTML** and **CSS** (using the **Pug** template engine). It also uses a **MongoDB** database to store all the data.
 
 ## Code documentation and API documentation
 The code was commented using Doxygen notation (apart from trivial things and test cases). The API is documented through [Swagger](http://swagger.io/) and inside the ```doc/``` dir you can find the yaml source file and a nodesj server that displays an online version of the API documentation. To start the swagger nodejs server you can type on a console:
