@@ -9,8 +9,8 @@ var assert = require('assert');
 
 describe("Question CRUD model", function(){
     
-    var testQuestion = new Question.Question(1, 'test', 'test', 0,'test_category', ['a', 'pattern2']);
-    var testQuestion2 = new Question.Question(2, 'test2', 'test2', 1,'test_category2', ['pattern', 'd']);
+    var testQuestion = new Question.Question(1, 'test', 'test', {"up": 1, "down": 1},'test_category', ['a', 'pattern2']);
+    var testQuestion2 = new Question.Question(2, 'test2', 'test2', {"up": 2, "down": 1},'test_category2', ['pattern', 'd']);
     var allTestQuestions = { 
         'category_one': [testQuestion],
         'category_two': [testQuestion2]

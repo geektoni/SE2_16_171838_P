@@ -11,6 +11,7 @@ function setAnswer(answer) {
 }
 
 function setRating(rating) {
+    // Rating structure {up: "", down: ""}
     this.rating = rating;
 }
 
@@ -49,6 +50,13 @@ function arraysEqual(a, b) {
     return true;
 }
 
+function ratingEqual(a, b) {
+    if (a===b) return true;
+    if (a == null || b == null) return false;
+    if (a== undefined || b == undefined) return false;
+    return (a['up'] === b['up'] && a['down'] === b['down']);
+}
+
 function equals(question) {
     if (question === null || question === undefined)
     {
@@ -56,7 +64,7 @@ function equals(question) {
     }
     return this.title === question.title &&
                 this.answer === question.answer &&
-                this.rating === question.rating &&
+                ratingEqual(this.rating, question.rating) &&
                 this.category === question.category && 
                 arraysEqual(this.tags, question.tags);
 }
