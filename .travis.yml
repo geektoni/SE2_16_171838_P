@@ -6,6 +6,7 @@ services:
 branches:
   only:
     - staging
+    - master
 before_script:
 - sleep 15
 after_success:
