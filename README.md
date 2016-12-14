@@ -3,6 +3,10 @@
 [![Build Status](https://travis-ci.org/geektoni/SE2_16_171838_P.svg?branch=staging)](https://travis-ci.org/geektoni/SE2_16_171838_P)
 [![codecov](https://codecov.io/gh/geektoni/SE2_16_171838_P/branch/master/graph/badge.svg)](https://codecov.io/gh/geektoni/SE2_16_171838_P)
 
+## Online version
+
+You can find and online vesion of the application at this [link](https://se2-16-171838-p-production.herokuapp.com/).
+
 ## Introduction
 
 This is an application prototype for the Software Engineering Course Project. It was made based on a mockup idea produced during one interactive lesson where we worked in pairs following tips given by [The Gift Giving Project](https://dschool.stanford.edu/groups/designresources/wiki/ed894/The_GiftGiving_Project.html). You can find the proposed mockup [here](https://drive.google.com/file/d/0B8Hfs7DpCPvHWHJKeHFtOWFDM2M/view) (initially it was designed as a smarthphone application).
@@ -28,7 +32,3 @@ npm install
 npm start
 ```
 If you wish to try a custom database, you must change the ```PRODUCTION``` variable inside ```lib\databaseConnection.js``` supplying your ```mongodb://``` url. 
-
-## Online version
-
-You can find and online vesion of the application at this [link](https://se2-16-171838-p-production.herokuapp.com/).
