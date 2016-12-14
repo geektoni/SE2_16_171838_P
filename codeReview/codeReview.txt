@@ -1,0 +1,9 @@
+Reviewer: Giovanni M Riva (xGioe)
+Matricola: 174470
+
+Note: Il file analizzato e’ questionDAO.js fornito dall’autore Giovanni De Toni (geektoni)
+
+- il nome della classe contiene la parola “DAO” che richiama ad un pattern di sviluppo non impresentabile in node js in quanto non esistono le classi in Javascript.
+
+- si potrebbe riassumere in un’unica funzione la costruzione dell’oggetto di risposta (vedi oggetto tmp)
+
