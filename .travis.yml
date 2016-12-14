@@ -1,9 +1,13 @@
 language: node_js
 node_js:
 - '4.2'
+services:
+- mongodb
 branches:
   only:
     - staging
+before_script:
+- sleep 15
 after_success:
 - "./node_modules/.bin/codecov -e TRAVIS_NODE_VERSION -f coverage/coverage.json"
 deploy:

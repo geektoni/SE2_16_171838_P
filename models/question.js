@@ -62,6 +62,7 @@ function setAnswer(answer) {
 * @param The new question rating.
 */
 function setRating(rating) {
+    // Rating structure {up: "", down: ""}
     this.rating = rating;
 }
 
@@ -108,7 +109,7 @@ function equals(question) {
     }
     return this.title === question.title &&
                 this.answer === question.answer &&
-                this.rating === question.rating &&
+                ratingEqual(this.rating, question.rating) &&
                 this.category === question.category && 
                 arraysEqual(this.tags, question.tags);
 }
@@ -129,6 +130,17 @@ function arraysEqual(a, b) {
     return true;
 }
 
+/**
+* @brief Check if two ratings are equal.
+* @param a the first rating.
+* @param b the second rating.
+*/
+function ratingEqual(a, b) {
+    if (a===b) return true;
+    if (a == null || b == null) return false;
+    if (a== undefined || b == undefined) return false;
+    return (a['up'] === b['up'] && a['down'] === b['down']);
+}
 
 module.exports.Question = Question;
 
