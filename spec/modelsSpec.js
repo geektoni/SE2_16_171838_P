@@ -1,3 +1,9 @@
+/**
+* Test file for the question DAO model.
+*
+* It contains all the CRUD method's unit tests. 
+*/
+
 // Tell the application to switch to the testing database
 process.env.TEST = 1;
 
@@ -9,10 +15,13 @@ var assert = require('assert');
 
 describe("Question CRUD model", function(){
     
+    // Sample test questions
     var testQuestion;
     var testQuestion2;
     var allTestQuestions;
     
+    // Before each test case create the collections, insert new values
+    // and regenerate the full-text index.
     beforeEach(function(done) {
         testQuestion = new Question.Question(1, 'test', 'test', {"up": 1, "down": 1},'test_category', ['a', 'pattern2']);
         testQuestion2 = new Question.Question(2, 'test2', 'test2', {"up": 2, "down": 1},'test_category2', ['pattern', 'd']);
@@ -26,6 +35,8 @@ describe("Question CRUD model", function(){
             collection.insertMany([testQuestion, testQuestion2], function(err, result) {
                 assert.equal(err, null);
                 db.collection(database.defaultCollection).createIndex({
+                    title: "text",
+                    answer: "text",
                     tags: "text"
                 }, function(err, result){
                     db.close();
@@ -35,12 +46,12 @@ describe("Question CRUD model", function(){
         });
     });
     
+    // After each test case reset the database by dropping collections
     afterEach(function(done) {
         database.client.connect(database.url, function(err, db) {
             assert.equal(null, err);
             var collection = db.collection(database.defaultCollection);
             collection.drop();
-            db.collection(database.categoryCollection).drop();
             db.close();
             done();
         });
@@ -59,7 +70,7 @@ describe("Question CRUD model", function(){
         });
     });
     
-    it("retrieve all questions group by category", function(){
+    it("retrieve all questions grouped by category", function(){
         questionDAO.readAll(function(err, result){
             var testResult = { 
                 "test_category": [testQuestion],
