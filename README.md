@@ -1,7 +1,7 @@
 # Uninforma 
 #### SE2_16_171838_P
-[![Build Status](https://travis-ci.org/geektoni/SE2_16_171838_P.svg?branch=staging)](https://travis-ci.org/geektoni/SE2_16_171838_P)
-[![codecov](https://codecov.io/gh/geektoni/SE2_16_171838_P/branch/master/graph/badge.svg)](https://codecov.io/gh/geektoni/SE2_16_171838_P)
+[![Build Status](https://travis-ci.org/geektoni/Uninforma.svg?branch=staging)](https://travis-ci.org/geektoni/Uninforma)
+[![codecov](https://codecov.io/gh/geektoni/Uninforma/branch/master/graph/badge.svg)](https://codecov.io/gh/geektoni/Uninforma)
 
 # Online version
 
